@@ -1,7 +1,7 @@
+import { fileTypeFromBuffer } from 'file-type';
 import TurnDown from 'turndown';
 import { gfm } from 'turndown-plugin-gfm';
 import { uniqueID } from '@tech_query/node-toolkit';
-import { fromBuffer } from 'file-type';
 import { parse, join } from 'path';
 
 const attribute_key = {
@@ -112,7 +112,7 @@ export async function createFilePath(
 ) {
     const { base, ext } = parseFileName(raw_path);
 
-    const type = ext || (await fromBuffer(data))?.ext;
+    const type = ext || (await fileTypeFromBuffer(data))?.ext;
     let name = base || uniqueID();
 
     if (type) name += `.${type}`;
